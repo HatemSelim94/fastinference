@@ -79,7 +79,7 @@ def render(layer, **kwargs):
             kernel_shape = layer.kernel_shape,
             strides = layer.strides,
             pads = layer.pads,
-            dilations = layer.dilations
+            dilations = layer.dilations,
             **kwargs
         )
     else:
