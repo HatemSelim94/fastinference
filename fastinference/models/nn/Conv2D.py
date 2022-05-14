@@ -37,7 +37,7 @@ class Conv2D(Layer):
         output_shape = (1, kernel_shape[0], int(out_row), int(out_col))
 
         self.kernel_shape = kernel_shape
-        self.weight, self.bias, self.strides, self.pads, self.dialtions = weight, bias, strides, pads, dilations
+        self.weight, self.bias, self.strides, self.pads, self.dilations = weight, bias, strides, pads, dilations
         super().__init__(input_shape, output_shape, "conv2d")
 
     # def to_implementation(self, backend):
