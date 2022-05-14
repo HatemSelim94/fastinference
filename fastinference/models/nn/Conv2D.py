@@ -33,7 +33,7 @@ class Conv2D(Layer):
         dilations = fastinference.Util.get_attribute(node,'dilations').ints
 
         out_row = (input_shape[2] - dilations[0] * kernel_shape[2] + pads[0] + pads[2]) // strides[0] + 1
-        out_col = (input_shape[3] - dilations[0] * kernel_shape[3] + pads[1] + pads[3]) // strides[1] + 1
+        out_col = (input_shape[3] - dilations[1] * kernel_shape[3] + pads[1] + pads[3]) // strides[1] + 1
         output_shape = (1, kernel_shape[0], int(out_row), int(out_col))
 
         self.kernel_shape = kernel_shape
