@@ -30,13 +30,14 @@ class Conv2D(Layer):
         kernel_shape = weight.shape
         strides = fastinference.Util.get_attribute(node, 'strides').ints
         pads = fastinference.Util.get_attribute(node, 'pads').ints
+        dilations = fastinference.Util.get_attribute(node,'dilations').ints
 
-        out_row = (input_shape[2] - kernel_shape[2] + pads[0] + pads[2]) // strides[0] + 1
-        out_col = (input_shape[3] - kernel_shape[3] + pads[1] + pads[3]) // strides[1] + 1
+        out_row = (input_shape[2] - dilations[0] * kernel_shape[2] + pads[0] + pads[2]) // strides[0] + 1
+        out_col = (input_shape[3] - dilations[0] * kernel_shape[3] + pads[1] + pads[3]) // strides[1] + 1
         output_shape = (1, kernel_shape[0], int(out_row), int(out_col))
 
         self.kernel_shape = kernel_shape
-        self.weight, self.bias, self.strides, self.pads = weight, bias, strides, pads
+        self.weight, self.bias, self.strides, self.pads, self.dialtions = weight, bias, strides, pads, dilations
         super().__init__(input_shape, output_shape, "conv2d")
 
     # def to_implementation(self, backend):
