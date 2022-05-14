@@ -72,7 +72,8 @@ def render(layer, **kwargs):
             threshold = layer.threshold,
             **kwargs
         )
-    elif isinstance(layer, (Conv2D, MaxPool2d)):
+
+    elif isinstance(layer, Conv2D):
         code_predict = env.get_template(layer.name + '.j2').render(
             output_shape = layer.output_shape,
             input_shape = layer.input_shape,
@@ -80,6 +81,15 @@ def render(layer, **kwargs):
             strides = layer.strides,
             pads = layer.pads,
             dilations = layer.dilations,
+            **kwargs
+        )
+    elif isinstance(layer, MaxPool2d):
+        code_predict = env.get_template(layer.name + '.j2').render(
+            output_shape = layer.output_shape,
+            input_shape = layer.input_shape,
+            kernel_shape = layer.kernel_shape,
+            strides = layer.strides,
+            pads = layer.pads,
             **kwargs
         )
     else:
